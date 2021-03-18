@@ -7,6 +7,7 @@ const Board = () => {
     const {state, dispatch} = useContext(DataContext)
     const { filledBoxes, won, gameOver } = state
     useEffect(() => {
+      console.log(filledBoxes)
         const possibleMatches = () => {
           if(filledBoxes.length < 5){
             return
@@ -35,26 +36,9 @@ const Board = () => {
             dispatch({ type: 'SET_GAMEOVER', payload: true })
             return
           }
-      
-          //console.log(xPieces)
-      
-          //All Horizontal 
-          //1,2,3 4,5,6 7,8,9
-      
-          //All Vertical
-          //1,4,7 2,5,8 3,6,9
-      
-          //All Diagonal
-          //1,5,9 3,5,7
         }
         possibleMatches()
       }, [filledBoxes])
-
-    //   const handleOnClick = (box, piece) => {
-    //     setTurn(xturn => !xturn)
-    //     setFilledBoxes([{piece, box}, ...filledBoxes])
-    //     //collect index and value
-    //   }
     
       const threeBoxMatch = (filteredArr) => {
         //Horizontal
@@ -94,6 +78,10 @@ const Board = () => {
     
         return 'no win'
       }
+
+      const restartGame = () => {
+        dispatch({ type: 'RESTART'})
+      }
     
 
     return (
@@ -101,18 +89,15 @@ const Board = () => {
         {gameOver && <div className="game-over">
             Game over
             <p>{won} won</p>
+            <button onClick={restartGame}>Restart</button>
           </div>
         }
         <div className="box-container">
-          <Box ind="1" />
-          <Box ind="2" />
-          <Box ind="3" />
-          <Box ind="4" />
-          <Box ind="5" />
-          <Box ind="6" />
-          <Box ind="7" />
-          <Box ind="8" />
-          <Box ind="9" />
+          {
+            Array.from(Array(9).keys()).map((_, index) => {
+              return <Box key={index} ind={`${index + 1}`} />
+            })
+          }
         </div>
       </div>
     )

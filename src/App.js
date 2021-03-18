@@ -8,7 +8,10 @@ const App = () => {
     xturn: false, 
     won: null, 
     gameOver: false, 
-    filledBoxes: []
+    filledBoxes: [],
+    removed: {},
+    restart: false,
+    score: {oScore: 0, xScore: 1}
   }
 
   const [state, dispatch] = useReducer(reducers, initialState)

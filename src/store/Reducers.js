@@ -28,7 +28,22 @@ const reducers = (state, action) => {
         case ACTIONS.REMOVE_BOX:
             return {
                 ...state,
-                filledBoxes: state.filledBoxes.filter(it => it.box !== payload)
+                filledBoxes: state.filledBoxes.filter(it => it.box !== payload.box),
+                removed: payload
+            };
+        case ACTIONS.SET_RESTART:
+            return {
+                ...state,
+                restart: false
+            };
+        case ACTIONS.RESTART:
+            return {
+                xturn: false, 
+                won: null, 
+                gameOver: false, 
+                filledBoxes: [],
+                removed: {},
+                restart: true
             };
 
         default:
